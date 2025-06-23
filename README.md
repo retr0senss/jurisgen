@@ -23,9 +23,9 @@ JurisGen, Türk hukuk sisteminde çalışan avukatlar, hukukçular ve araştırm
 
 ### ✨ **Temel Özellikler**
 
-- 🧠 **AI-Powered Search**: GPT-4 destekli akıllı mevzuat arama
+- 🧠 **AI-Powered Chat**: Grok-3-mini destekli akıllı sohbet asistanı
 - 🎯 **Intent Classification**: Kullanıcı niyetini anlayan gelişmiş sınıflandırma
-- 🔍 **Semantic Matching**: Anlamsal benzerlik tabanlı sonuç sıralama
+- 🔍 **Semantic Matching**: Çok dilli transformer modeller ile anlamsal arama
 - ⚡ **Performance Optimized**: Multi-layer cache sistemi ile hızlı yanıtlar
 - 🎨 **Modern UI/UX**: Responsive ve kullanıcı dostu arayüz
 - 🔐 **Secure**: Clerk.dev ile güvenli kimlik doğrulama
@@ -40,10 +40,11 @@ graph TB
     B --> D[Semantic Search]
     B --> E[MCP Server]
     E --> F[Mevzuat.gov.tr]
-    C --> G[GPT-4 API]
-    D --> H[Embedding Cache]
-    B --> I[Vercel Cache]
-    B --> J[Database Cache]
+    C --> G[Grok-3-Mini API]
+    D --> H[Google Embeddings]
+    D --> I[HuggingFace Transformers]
+    B --> J[Vercel Cache]
+    B --> K[Database Cache]
 ```
 
 ---
@@ -76,8 +77,11 @@ cp .env.example .env.local
 `.env.local` dosyasını düzenleyin:
 
 ```env
-# OpenAI API
-OPENAI_API_KEY=your_openai_api_key
+# Grok AI API (x.ai)
+GROK_API_KEY=your_grok_api_key
+
+# Google AI API (Embeddings)
+GOOGLE_API_KEY=your_google_ai_api_key
 
 # Clerk Authentication
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
@@ -171,14 +175,16 @@ jurisgen/
 
 - **API**: Next.js API Routes
 - **Database**: PostgreSQL + Prisma ORM
-- **AI**: OpenAI GPT-4
+- **AI Chat**: Grok-3-mini (x.ai)
 - **Cache**: Vercel Cache + Custom LRU Cache
 - **MCP Server**: FastAPI (Python)
 
 ### **AI & Search**
 
-- **Intent Classification**: Custom GPT-4 based system
-- **Semantic Search**: Text embeddings + cosine similarity
+- **Chat Model**: Grok-3-mini (x.ai platformu)
+- **Embeddings**: Google Gemini Embedding (gemini-embedding-001)
+- **Semantic Matching**: HuggingFace sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+- **Intent Classification**: Hybrid (keyword matching + semantic embeddings + LLM fallback)
 - **Result Ranking**: Multi-factor scoring algorithm
 - **Confidence Scoring**: Bayesian confidence estimation
 
@@ -188,14 +194,16 @@ jurisgen/
 
 ### **🧠 AI-Powered Intent Classification**
 
-Sistem, kullanıcı sorgularını analiz ederek 6 farklı kategoriye ayırır:
+Sistem, kullanıcı sorgularını analiz ederek 8 farklı hukuk dalına ayırır:
 
-- `SPECIFIC_SEARCH`: Belirli mevzuat arama
-- `GENERAL_LEGAL_QUESTION`: Genel hukuki sorular
-- `COMPARATIVE_ANALYSIS`: Karşılaştırmalı analiz
-- `PROCEDURAL_QUESTION`: Prosedür soruları
-- `CASE_ANALYSIS`: Vaka analizi
-- `DEFINITION_REQUEST`: Tanım istekleri
+- `İş Hukuku`: İşçi hakları, iş sözleşmeleri, işten çıkarma
+- `Ceza Hukuku`: Suçlar, cezalar, ceza prosedürü
+- `Medeni Hukuk`: Kişi hakları, aile hukuku, miras hukuku
+- `Ticaret Hukuku`: Şirket hukuku, ticari işlemler
+- `İdare Hukuku`: Kamu yönetimi, idari işlemler
+- `Konut Hukuku`: Kiracı-mal sahibi ilişkileri
+- `Turizm Hukuku`: Turizm sektörü düzenlemeleri
+- `Sigorta Hukuku`: Sigorta sözleşmeleri ve düzenlemeleri
 
 ### **🔍 Semantic Matching System**
 
@@ -253,7 +261,7 @@ Content-Type: application/json
 
 {
   "query": "işçi hakları",
-  "intent": "SPECIFIC_SEARCH",
+  "intent": "İş Hukuku",
   "filters": {
     "mevzuat_turleri": ["KANUN"]
   }
@@ -294,10 +302,10 @@ npm run test:coverage # Coverage report
 
 ## 📊 **Performans Metrikleri**
 
-- ⚡ **Response Time**: < 500ms (cached)
-- 🎯 **Intent Accuracy**: ~92%
+- ⚡ **Response Time**: 50-1700ms (keyword vs LLM fallback)
+- 🎯 **Intent Accuracy**: ~43% (geliştirme aşamasında)
 - 📈 **Cache Hit Rate**: ~85%
-- 🔍 **Search Relevance**: ~88%
+- 🔍 **Search Relevance**: Sürekli iyileştiriliyor
 
 ---
 
@@ -344,7 +352,9 @@ Bu proje MIT lisansı altında yayınlanmıştır. Detaylar için [LICENSE](LICE
 - [saidsurucu](https://github.com/saidsurucu) - Orijinal MCP sunucusu için
 - [Adalet Bakanlığı](https://mevzuat.gov.tr) - Mevzuat Bilgi Sistemi
 - [Vercel](https://vercel.com) - Hosting platform
-- [OpenAI](https://openai.com) - GPT-4 API
+- [x.ai](https://x.ai) - Grok-3-mini API
+- [Google AI](https://ai.google.dev) - Gemini Embedding API
+- [HuggingFace](https://huggingface.co) - Transformer modelleri
 
 ---
 
