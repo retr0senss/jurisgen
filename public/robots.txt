@@ -1,0 +1,10 @@
+# Allow all user agents to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of specific directories if needed in the future
+# Disallow: /admin/
+# Disallow: /private/
+
+# Point to the sitemap
+Sitemap: https://jurisgen.vercel.app/sitemap.xml 

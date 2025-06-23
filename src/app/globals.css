@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer theme, base, components, utilities;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: rgb(248 250 252); /* #F8FAFC - çok açık gri */
+  --color-foreground: rgb(24 24 27); /* #18181B - siyah, neredeyse tam siyah */
+  --color-card: rgb(255 255 255); /* #FFFFFF - beyaz */
+  --color-card-foreground: rgb(24 24 27); /* #18181B */
+  --color-popover: rgb(255 255 255); /* #FFFFFF */
+  --color-popover-foreground: rgb(24 24 27); /* #18181B */
+  --color-primary: rgb(29 78 216); /* #1D4ED8 - saf mavi, Tailwind blue-700 */
+  --color-primary-foreground: rgb(255 255 255); /* beyaz metin */
+  --color-secondary: rgb(241 245 249); /* #F1F5F9 - açık gri buton */
+  --color-secondary-foreground: rgb(24 24 27); /* #18181B */
+  --color-muted: rgb(241 245 249); /* #F1F5F9 */
+  --color-muted-foreground: rgb(82 82 91); /* #52525B - gri */
+  --color-accent: rgb(99 102 241); /* #6366F1 - indigo */
+  --color-accent-foreground: rgb(255 255 255);
+  --color-destructive: rgb(239 68 68); /* #EF4444 - kırmızı */
+  --color-destructive-foreground: rgb(255 255 255);
+  --color-border: rgb(229 231 235); /* #E5E7EB - açık gri */
+  --color-input: rgb(248 250 252); /* #F8FAFC */
+  --color-ring: rgb(99 102 241); /* #6366F1 - indigo focus */
+  --color-success: rgb(34 197 94); /* #22C55E - yeşil */
+  --color-warning: rgb(250 204 21); /* #FACC15 - sarı */
+  --color-radius: 0.625rem; /* 10px - modern border radius */
+}
+
+@layer base {
+  @variant dark {
+    --color-background: rgb(16 22 35); /* #101623 - koyu gri-mavi ton */
+    --color-foreground: rgb(248 250 252); /* #F8FAFC - tam beyaz */
+    --color-card: rgb(24 30 42); /* #181E2A - daha açık koyu gri */
+    --color-card-foreground: rgb(248 250 252); /* #F8FAFC */
+    --color-popover: rgb(24 30 42); /* #181E2A */
+    --color-popover-foreground: rgb(248 250 252); /* #F8FAFC */
+    --color-primary: rgb(59 130 246); /* #3B82F6 - açık mavi, Tailwind blue-500 */
+    --color-primary-foreground: rgb(24 24 27); /* siyah metin */
+    --color-secondary: rgb(35 43 58); /* #232B3A */
+    --color-secondary-foreground: rgb(248 250 252); /* #F8FAFC */
+    --color-muted: rgb(35 43 58); /* #232B3A */
+    --color-muted-foreground: rgb(163 167 183); /* #A3A7B7 - gri */
+    --color-accent: rgb(129 140 248); /* #818CF8 - indigo, biraz daha pastel */
+    --color-accent-foreground: rgb(24 24 27);
+    --color-destructive: rgb(239 68 68); /* #EF4444 - kırmızı */
+    --color-destructive-foreground: rgb(255 255 255);
+    --color-border: rgb(35 43 58); /* #232B3A - koyu border */
+    --color-input: rgb(35 43 58); /* #232B3A */
+    --color-ring: rgb(129 140 248); /* #818CF8 - indigo focus */
+    --color-success: rgb(34 197 94); /* #22C55E - yeşil */
+    --color-warning: rgb(250 204 21); /* #FACC15 - sarı */
+  }
+
+  /* Base Styles */
+  * {
+    border-color: var(--color-border);
+    transition: colors 250ms ease-in-out, background-color 250ms ease-in-out,
+      border-color 250ms ease-in-out;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-muted);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-muted-foreground);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+}
+
+@layer components {
+  /* Premium Gradient - Özel kartlar için */
+  .premium-gradient {
+    background: linear-gradient(135deg, #7c3aed, #2563eb, #38bdf8);
+  }
+
+  .premium-gradient-hover {
+    background: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4);
+  }
+
+  /* Modern Shadows */
+  .light-shadow {
+    box-shadow: 0 6px 20px rgba(35, 43, 58, 0.1);
+  }
+
+  .dark-shadow {
+    box-shadow: 0 6px 20px rgba(130, 156, 255, 0.07);
+  }
+}
+
+@layer utilities {
+  /* Focus States */
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-ring);
+  }
+}
